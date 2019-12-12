@@ -1,21 +1,17 @@
-.BtnCell{
-    background-color: rgb(48, 167, 167);
-    width: 50px;
-    height: 50px;
-}
-
-.btn_cell_empty {
-    background-color: blue;
+.BtnCell {
+  background-color: rgb(48, 167, 167);
+  width: 50px;
+  height: 50px;
 }
 
 .BtnCellShip {
-    background-color: rgb(171, 197, 21);
+  background-color: rgb(171, 197, 21);
 }
 
-.btn_cell_destiyed_ship {
-    background-color: red;
+.BtnCellDestroyedShip {
+  background-color: rgb(207, 58, 58);
 }
 
-.btn_cell_empty_hitted {
-    background-color: red;
+.BtnCellEmptyHitted {
+  background-color: rgb(53, 70, 170);
 }
