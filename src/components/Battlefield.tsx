@@ -1,11 +1,16 @@
 import React from "react";
 import Cell, { CellProps } from "./Cell";
 import "../styles/Battlefield.css";
+import { connect } from "react-redux";
+import { setCurrentPlayer } from "./actions/setCurrentPlayerAction";
 
 interface BattleFieldProps {
   areShipsVisible: boolean;
   shipLayoutData: ShipLayoutData;
   battleFieldSize?: number;
+  player: string;
+  currentPlayer: string;
+  setCurrentPlayer: (player: string) => {};
 }
 
 interface ShipType {
@@ -28,12 +33,14 @@ class BattleField extends React.Component<BattleFieldProps, BattleFieldState> {
   }
 
   cellClickHandler = (i: number, j: number, shipId?: number) => {
+    if (this.props.currentPlayer !== this.props.player) return;
     const prevFieldState = this.state.field;
     prevFieldState[i][j].wasHitted = true;
     shipId && this.checkShipDestroyed(prevFieldState, shipId);
     this.setState({
       field: prevFieldState
     });
+    this.endTurn();
   };
 
   checkShipDestroyed = (prevFieldState: CellProps[][], shipId: number) => {
@@ -58,6 +65,11 @@ class BattleField extends React.Component<BattleFieldProps, BattleFieldState> {
       }
     });
   };
+
+  endTurn() {
+    console.log("EndTurn");
+    setCurrentPlayer(this.props.player === "player1" ? "player1" : "player2");
+  }
 
   getEmptyBattlefield = (): CellProps[][] => {
     const size = this.props.battleFieldSize || 10;
@@ -122,4 +134,11 @@ class BattleField extends React.Component<BattleFieldProps, BattleFieldState> {
     return <div className="Battlefield">{this.renderBattlefield()}</div>;
   }
 }
-export default BattleField;
+const mapStateToProps = (state: any) => ({
+  currentPlayer: state.currentPlayer
+});
+const mapDispatchToProps = (dispatch: any) => ({
+  setCurrentPlayer: (player: string) => dispatch(setCurrentPlayer(player))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BattleField);

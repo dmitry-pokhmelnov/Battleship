@@ -2,6 +2,10 @@ import React from "react";
 import Battlefield, { ShipLayoutData } from "./Battlefield";
 import "../styles/Game.css";
 
+interface GameProps {
+  fieldSize: number;
+}
+
 const shipLayoutData: ShipLayoutData = {
   shipTypes: {
     carrier: { size: 5, count: 1 },
@@ -62,19 +66,21 @@ const shipLayoutData: ShipLayoutData = {
   ]
 };
 
-class Game extends React.Component {
+class Game extends React.Component<GameProps> {
   render() {
     return (
       <div className="Game">
         <Battlefield
           shipLayoutData={shipLayoutData}
           areShipsVisible
-          battleFieldSize={10}
+          battleFieldSize={this.props.fieldSize}
+          player="player1"
         />
         <Battlefield
           shipLayoutData={shipLayoutData}
           areShipsVisible={false}
-          battleFieldSize={10}
+          battleFieldSize={this.props.fieldSize}
+          player="player2"
         />
       </div>
     );
