@@ -12,9 +12,9 @@ const shipLayoutData: ShipLayoutData = {
     battleship: { size: 4, count: 1 },
     cruiser: { size: 3, count: 1 },
     submarine: { size: 3, count: 1 },
-    destroyer: { size: 2, count: 1 }
+    destroyer: { size: 2, count: 1 },
   },
-  // We can use kust array index of ship instead of "id" field
+  // We can use current array index of ship instead of "id" field
   layout: [
     {
       ship: "carrier",
@@ -24,8 +24,8 @@ const shipLayoutData: ShipLayoutData = {
         [3, 9],
         [4, 9],
         [5, 9],
-        [6, 9]
-      ]
+        [6, 9],
+      ],
     },
     {
       ship: "battleship",
@@ -34,8 +34,8 @@ const shipLayoutData: ShipLayoutData = {
         [5, 2],
         [5, 3],
         [5, 4],
-        [5, 5]
-      ]
+        [5, 5],
+      ],
     },
     {
       ship: "cruiser",
@@ -43,8 +43,8 @@ const shipLayoutData: ShipLayoutData = {
       positions: [
         [8, 1],
         [8, 2],
-        [8, 3]
-      ]
+        [8, 3],
+      ],
     },
     {
       ship: "submarine",
@@ -52,39 +52,30 @@ const shipLayoutData: ShipLayoutData = {
       positions: [
         [3, 0],
         [3, 1],
-        [3, 2]
-      ]
+        [3, 2],
+      ],
     },
     {
       ship: "destroyer",
       id: 5,
       positions: [
         [0, 0],
-        [1, 0]
-      ]
-    }
-  ]
+        [1, 0],
+      ],
+    },
+  ],
 };
 
-class Game extends React.Component<GameProps> {
-  render() {
-    return (
-      <div className="Game">
-        <Battlefield
-          shipLayoutData={shipLayoutData}
-          areShipsVisible
-          battleFieldSize={this.props.fieldSize}
-          player="player1"
-        />
-        <Battlefield
-          shipLayoutData={shipLayoutData}
-          areShipsVisible={false}
-          battleFieldSize={this.props.fieldSize}
-          player="player2"
-        />
-      </div>
-    );
-  }
-}
-
-export default Game;
+export const Game: React.FC<GameProps> = React.memo(({ fieldSize }) => {
+  return (
+    <div className="Game">
+      <Battlefield shipLayoutData={shipLayoutData} areShipsVisible battleFieldSize={fieldSize} player="player1" />
+      <Battlefield
+        shipLayoutData={shipLayoutData}
+        areShipsVisible={false}
+        battleFieldSize={fieldSize}
+        player="player2"
+      />
+    </div>
+  );
+});

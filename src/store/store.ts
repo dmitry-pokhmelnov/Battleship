@@ -13,3 +13,5 @@ const composedEnhancers = compose(devTools);
 export const configureStore = (initialState = {}) => {
   return createStore(rootReducer, initialState, composedEnhancers);
 };
+
+export const store = configureStore({});
